@@ -117,7 +117,7 @@ struct PartnerDraftBlockView: View {
                                 }
                                 .transition(.scale.combined(with: .opacity))
                             } else if isConfirmingNormalSend {
-                                Text("Sure?")
+                                Text("Confirm")
                                     .font(.subheadline)
                                     .foregroundColor(Color.accentColor)
                                     .transition(.scale.combined(with: .opacity))
