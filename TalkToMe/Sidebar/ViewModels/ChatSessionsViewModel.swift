@@ -526,7 +526,7 @@ class ChatSessionsViewModel: ObservableObject {
             let token = session.accessToken
             let profile = try await BackendService.shared.fetchProfileInfo(accessToken: token)
             await MainActor.run {
-                UserDefaults.standard.set(profile.full_name, forKey: "therai_profile_full_name")
+                UserDefaults.standard.set(profile.full_name, forKey: "talktome_profile_full_name")
                 NotificationCenter.default.post(name: .profileChanged, object: nil)
             }
         } catch {

@@ -70,7 +70,7 @@ final class PushNotificationManager: NSObject, ObservableObject {
     func setPushEnabled(_ enabled: Bool) {
         DispatchQueue.main.async {
             self.isPushEnabled = enabled
-            UserDefaults.standard.set(enabled, forKey: "therai_push_enabled")
+            UserDefaults.standard.set(enabled, forKey: "talktome_push_enabled")
         }
         if enabled {
             // Re-register if authorized
@@ -96,11 +96,11 @@ final class PushNotificationManager: NSObject, ObservableObject {
     }
 
     func loadPushEnabledFromDefaults() {
-        if UserDefaults.standard.object(forKey: "therai_push_enabled") != nil {
-            isPushEnabled = UserDefaults.standard.bool(forKey: "therai_push_enabled")
+        if UserDefaults.standard.object(forKey: "talktome_push_enabled") != nil {
+            isPushEnabled = UserDefaults.standard.bool(forKey: "talktome_push_enabled")
         } else {
             isPushEnabled = true
-            UserDefaults.standard.set(true, forKey: "therai_push_enabled")
+            UserDefaults.standard.set(true, forKey: "talktome_push_enabled")
         }
     }
 }

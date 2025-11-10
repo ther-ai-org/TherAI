@@ -68,10 +68,10 @@ struct ChatMessage: Identifiable {
         self.timestamp = Date()
 
         if let obj = ChatMessage.tryDecodeJSONDictionary(from: dto.content) {
-            let therai = (obj["_therai"] as? [String: Any]) ?? ChatMessage.tryDecodeJSONDictionary(from: obj["_therai"]) ?? [:]
-            let type = therai["type"] as? String
+            let talktome = (obj["_talktome"] as? [String: Any]) ?? ChatMessage.tryDecodeJSONDictionary(from: obj["_talktome"]) ?? [:]
+            let type = talktome["type"] as? String
             if type == "segments" {
-                let segmentsArr = (therai["segments"] as? [Any]) ?? (obj["segments"] as? [Any]) ?? []
+                let segmentsArr = (talktome["segments"] as? [Any]) ?? (obj["segments"] as? [Any]) ?? []
                 var segs: [MessageSegment] = []
                 var partnerTexts: [String] = []
                 for item in segmentsArr {
@@ -97,7 +97,7 @@ struct ChatMessage: Identifiable {
                 self.isToolLoading = false
                 return
             } else if type == "partner_received" {
-                if let text = therai["text"] as? String {
+                if let text = talktome["text"] as? String {
                     let body = obj["body"] as? String ?? ""
                     var segs: [MessageSegment] = []
                     if !body.isEmpty {

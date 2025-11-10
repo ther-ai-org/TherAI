@@ -24,7 +24,7 @@ class SettingsViewModel: ObservableObject {
     init() {
         loadSettings()
         // Warm name from cache immediately to avoid flicker
-        if let cached = UserDefaults.standard.string(forKey: "therai_profile_full_name"),
+        if let cached = UserDefaults.standard.string(forKey: "talktome_profile_full_name"),
            !cached.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             self.fullName = cached
             self.isProfileLoaded = true
@@ -103,7 +103,7 @@ class SettingsViewModel: ObservableObject {
                 Haptics.selection()
             }
         case ("App Settings", "Push Notifications"), ("App Settings", "Notifications"):
-            let current = UserDefaults.standard.object(forKey: "therai_push_enabled") != nil ? UserDefaults.standard.bool(forKey: "therai_push_enabled") : true
+            let current = UserDefaults.standard.object(forKey: "talktome_push_enabled") != nil ? UserDefaults.standard.bool(forKey: "talktome_push_enabled") : true
             let newValue = !current
             PushNotificationManager.shared.setPushEnabled(newValue)
             DispatchQueue.main.async { self.setupSettingsSections() }
@@ -196,7 +196,7 @@ class SettingsViewModel: ObservableObject {
                 self.fullName = profileInfo.full_name
                 self.bio = profileInfo.bio
                 self.isProfileLoaded = true
-                UserDefaults.standard.set(self.fullName, forKey: "therai_profile_full_name")
+                UserDefaults.standard.set(self.fullName, forKey: "talktome_profile_full_name")
             } catch {
                 print("Failed to load profile info: \(error)")
                 self.isProfileLoaded = false
@@ -220,9 +220,9 @@ class SettingsViewModel: ObservableObject {
                     self.bio = bio
                     self.isProfileLoaded = true
                     if self.fullName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        UserDefaults.standard.removeObject(forKey: "therai_profile_full_name")
+                        UserDefaults.standard.removeObject(forKey: "talktome_profile_full_name")
                     } else {
-                        UserDefaults.standard.set(self.fullName, forKey: "therai_profile_full_name")
+                        UserDefaults.standard.set(self.fullName, forKey: "talktome_profile_full_name")
                     }
                     NotificationCenter.default.post(name: .profileChanged, object: nil)
                 }

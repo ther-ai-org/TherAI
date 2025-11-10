@@ -60,8 +60,8 @@
 		04C84DF42E6259BA00206037 = {
 			isa = PBXGroup;
 			children = (
-				04C84DFF2E6259BA00206037 /* TherAI */,
 				04C84DFE2E6259BA00206037 /* Products */,
+				04C84DFF2E6259BA00206037 /* TherAI */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,7 +310,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Stephan.TherAI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Stephan.TalkToMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -343,7 +343,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Stephan.TherAI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Stephan.TalkToMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -33,7 +33,7 @@ struct ContactSupportView: View {
                 let accent = Color(red: 0.4, green: 0.2, blue: 0.6)
                 Button(action: {
                     Haptics.impact(.medium)
-                    if let url = URL(string: "mailto:team.therai@gmail.com") {
+                    if let url = URL(string: "mailto:team.talktome@gmail.com") {
                         UIApplication.shared.open(url)
                     }
                 }) {
@@ -83,7 +83,7 @@ struct ContactSupportView: View {
                             Text("Support Email")
                                 .font(.system(size: 13, weight: .semibold))
                                 .foregroundColor(.secondary)
-                            Text("team.therai@gmail.com")
+                            Text("team.talktome@gmail.com")
                                 .font(.system(size: 16, weight: .medium))
                                 .foregroundColor(.primary)
                                 .textSelection(.enabled)
@@ -92,7 +92,7 @@ struct ContactSupportView: View {
                         Spacer()
 
                         Button(action: {
-                            UIPasteboard.general.string = "team.therai@gmail.com"
+                            UIPasteboard.general.string = "team.talktome@gmail.com"
                             Haptics.notification(.success)
                             withAnimation(.spring(response: 0.25, dampingFraction: 0.9)) { isCopied = true }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -120,7 +120,7 @@ struct ContactSupportView: View {
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        UIPasteboard.general.string = "team.therai@gmail.com"
+                        UIPasteboard.general.string = "team.talktome@gmail.com"
                         Haptics.notification(.success)
                         withAnimation(.spring(response: 0.25, dampingFraction: 0.9)) { isCopied = true }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {

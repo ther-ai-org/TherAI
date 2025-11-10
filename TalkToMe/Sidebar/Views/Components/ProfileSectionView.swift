@@ -12,7 +12,7 @@ struct ProfileSectionView: View {
 
     private var userName: String {
         // Prefer loaded profile info full name if available via SettingsViewModel cache on NotificationCenter
-        if let cached = UserDefaults.standard.string(forKey: "therai_profile_full_name"), !cached.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if let cached = UserDefaults.standard.string(forKey: "talktome_profile_full_name"), !cached.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             return cached
         }
         if let user = AuthService.shared.currentUser {
