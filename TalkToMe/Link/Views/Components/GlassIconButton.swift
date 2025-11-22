@@ -13,6 +13,7 @@ struct GlassIconButton: View {
         }
     }
 
+    @available(iOS 26.0, *)
     @ViewBuilder
     private var glassContent: some View {
         Image(systemName: systemName)

@@ -17,4 +17,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("[Push] Failed to register: \(error.localizedDescription)")
     }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let sourceApp = options[.sourceApplication] as? String ?? "unknown"
+        print("[URL] AppDelegate openURL: \(url.absoluteString), sourceApp: \(sourceApp)")
+        return true
+    }
 }

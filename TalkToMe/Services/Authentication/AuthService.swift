@@ -8,6 +8,7 @@ class AuthService: ObservableObject {
     static let shared = AuthService()
 
     let client: SupabaseClient
+    private let osVersion = ProcessInfo.processInfo.operatingSystemVersionString
 
     @Published var isAuthenticated = false
     @Published var currentUser: User?
@@ -30,6 +31,9 @@ class AuthService: ObservableObject {
             fatalError("Failed to construct redirect URL for Supabase OAuth")
         }
         self.redirectURL = redirectURL
+        print("[Auth] Init - iOS: \(osVersion)")
+        print("[Auth] Init - Supabase URL: \(supabaseURL)")
+        print("[Auth] Init - Redirect URL: \(redirectURL.absoluteString)")
 
         client = SupabaseClient(
             supabaseURL: URL(string: supabaseURL)!,
@@ -77,8 +81,10 @@ class AuthService: ObservableObject {
     }
 
     func signInWithGoogle() async {
+        print("[Auth] Google sign-in start - iOS: \(osVersion), redirect: \(redirectURL.absoluteString)")
         do {
             let session = try await googleService.signIn(redirectURL: redirectURL, client: client)
+            print("[Auth] Google sign-in success - user id: \(session.user.id)")
             await MainActor.run {
                 self.isLoadingInitialData = true
                 self.isAuthenticated = true
@@ -86,7 +92,15 @@ class AuthService: ObservableObject {
             }
             await enableDailyCheckinsByDefaultIfFirstTime()
         } catch {
-            print("Google sign-in error: \(error)")
+            let nsErr = error as NSError
+            print("[Auth][Google] error domain: \(nsErr.domain), code: \(nsErr.code)")
+            print("[Auth][Google] description: \(nsErr.localizedDescription)")
+            if !nsErr.userInfo.isEmpty {
+                print("[Auth][Google] userInfo: \(nsErr.userInfo)")
+            }
+            if let underlying = nsErr.userInfo[NSUnderlyingErrorKey] as? NSError {
+                print("[Auth][Google] underlying: domain=\(underlying.domain) code=\(underlying.code) desc=\(underlying.localizedDescription)")
+            }
         }
     }
 

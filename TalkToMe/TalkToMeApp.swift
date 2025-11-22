@@ -42,7 +42,11 @@ struct TalkToMeApp: App {
                     appearance == "Light" ? .light : appearance == "Dark" ? .dark : nil
                 )
                 .onOpenURL { url in
+                    print("[URL] onOpenURL received: \(url.absoluteString)")
                     AuthService.shared.client.auth.handle(url)
+                    if url.scheme?.hasPrefix("supabase-") == true && url.path == "/auth/callback" {
+                        print("[URL] Supabase auth callback detected")
+                    }
                     let base = AuthService.getInfoPlistValue(for: "SHARE_LINK_BASE_URL") as? String
                     let configuredHost = base.flatMap { URL(string: $0)?.host }
                     if url.host == configuredHost || url.path.hasPrefix("/link") {
