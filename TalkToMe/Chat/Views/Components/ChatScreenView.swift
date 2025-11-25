@@ -52,6 +52,10 @@ struct ChatScreenView: View {
                 .bottom,
                 inputBarHeight + (canShowSuggestions ? suggestionsHeight : 0) + bottomSafeInset
             )
+            .contentShape(Rectangle())
+            .onTapGesture {
+                isInputFocused.wrappedValue = false
+            }
         }
         .overlay(alignment: .bottom) {
             VStack(spacing: 0) {

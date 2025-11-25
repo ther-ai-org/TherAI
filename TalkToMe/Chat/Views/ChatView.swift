@@ -96,8 +96,6 @@ struct ChatView: View {
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .contentShape(Rectangle())
-        .onTapGesture { isInputFocused = false }
         .onAppear {
             // Do not focus input when sidebar is open
             if navigationViewModel.isOpen {
@@ -182,51 +180,47 @@ struct ChatView: View {
     @ViewBuilder
     private var partnerAddedBannerOverlay: some View {
         if showPartnerAddedBanner {
-            VStack {
-                HStack(alignment: .center, spacing: 12) {
-                    Image(systemName: "person.2.fill")
-                        .font(.system(size: 16, weight: .semibold))
+            HStack(alignment: .center, spacing: 12) {
+                Image(systemName: "person.2.fill")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.primary)
+                    .frame(width: 34, height: 34)
+                    .background {
+                        Circle().fill(.ultraThinMaterial).overlay(Circle().stroke(Color.primary.opacity(0.12), lineWidth: 1))
+                    }
+                    .shadow(color: Color.black.opacity(0.06), radius: 6, x: 0, y: 3)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("You’ve been added as a partner to " + (partnerAddedName.isEmpty ? "your partner" : partnerAddedName))
+                        .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.primary)
-                        .frame(width: 34, height: 34)
-                        .background {
-                            Circle().fill(.ultraThinMaterial).overlay(Circle().stroke(Color.primary.opacity(0.12), lineWidth: 1))
-                        }
-                        .shadow(color: Color.black.opacity(0.06), radius: 6, x: 0, y: 3)
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("You’ve been added as a partner to " + (partnerAddedName.isEmpty ? "your partner" : partnerAddedName))
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.primary)
-                    }
-                    Spacer(minLength: 8)
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: 0.35)) { showPartnerAddedBanner = false }
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.primary)
-                            .frame(width: 30, height: 30)
-                            .background {
-                                Circle().fill(.ultraThinMaterial).overlay(Circle().stroke(Color.primary.opacity(0.10), lineWidth: 1))
-                            }
-                    }
-                    .buttonStyle(.plain)
                 }
-                .padding(14)
-                .background(
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                .stroke(Color.primary.opacity(0.08), lineWidth: 1)
-                        )
-                        .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 6)
-                )
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-
-                Spacer(minLength: 0)
+                Spacer(minLength: 8)
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.35)) { showPartnerAddedBanner = false }
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.primary)
+                        .frame(width: 30, height: 30)
+                        .background {
+                            Circle().fill(.ultraThinMaterial).overlay(Circle().stroke(Color.primary.opacity(0.10), lineWidth: 1))
+                        }
+                }
+                .buttonStyle(.plain)
             }
+            .padding(14)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(.ultraThinMaterial)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(Color.primary.opacity(0.08), lineWidth: 1)
+                    )
+                    .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 6)
+            )
+            .padding(.horizontal, 20)
+            .padding(.top, 10)
             .transition(
                 .asymmetric(
                     insertion: .scale(scale: 0.95, anchor: .top).combined(with: .opacity),

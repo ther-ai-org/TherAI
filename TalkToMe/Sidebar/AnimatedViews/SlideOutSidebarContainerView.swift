@@ -83,7 +83,7 @@ struct SlideOutSidebarContainerView<Content: View>: View {
                 .presentationDragIndicator(.visible)
             }
             .contentShape(Rectangle())
-            .gesture(
+            .simultaneousGesture(
                 DragGesture(minimumDistance: 5)
                     .onChanged { value in
                         let dx = value.translation.width
